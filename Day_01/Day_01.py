@@ -17,7 +17,8 @@ for x in range(1, len(nums)):
 # Part 2
 p2_count = 0
 for x in range(3, len(nums)):
-    if nums[x] + nums[x - 2] + nums[x - 1] > nums[x - 1] + nums[x - 2] + nums[x - 3]:
+    # if nums[x] + nums[x - 2] + nums[x - 1] > nums[x - 1] + nums[x - 2] + nums[x - 3]:
+    if nums[x] > nums[x - 3]: # Shortcut
         p2_count += 1
 
 print("Part 1: " + str(p1_count))
