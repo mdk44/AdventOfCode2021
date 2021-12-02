@@ -34,7 +34,6 @@ for line in lines:
         vert2 += 0
     else:
         vert2 += read_line(line)[0] * aim
-    print([hor2, vert2])
 
 print("Part 1: " + str(hor1 * vert1))
 print("Part 2: " + str(hor2 * vert2))
