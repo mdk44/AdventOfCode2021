@@ -80,7 +80,31 @@ for num in nums:
         break
 
 part_1_sum = sum_card(bingocards[winning_card]) * winning_num
-
 print("Part 1: " + str(part_1_sum))
 
-# print_bingocards(bingocards)
+# Part 2
+bingocards = create_bingocards(lines)
+winners = []
+for i in range(0, numcards):
+    winners.append(1)
+
+for num in nums:
+    mark_cards(bingocards, num)
+    for i in range(0, numcards):
+        if winners[i] != 1:
+            pass
+        else:
+            result = (check_rows(bingocards[i]), check_columns(bingocards[i]))
+        for res in result:
+            if res != -1:
+                winners[i] = 0
+                break
+        if sum(winners) == 1:
+            break
+
+final_card = 0
+for i in range(0, len(winners)):
+    if winners[i] == 1:
+        final_card = i
+
+print_bingocards(bingocards[final_card])
