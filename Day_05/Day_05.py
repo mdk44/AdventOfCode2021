@@ -1,7 +1,7 @@
 import re
 
-input_file = 'Day_05\\Input.csv'
-# input_file = 'Day_05\\Test.csv'
+# input_file = 'Day_05\\Input.csv'
+input_file = 'Day_05\\Test.csv'
 text_file = open(input_file)
 lines = text_file.read().split('\n')
 
@@ -63,3 +63,52 @@ for y in range(0, max_y + 1):
     grid[y] = {}
     for x in range(0, max_x + 1):
         grid[y][x] = 0
+
+for num in num_list:
+    x1 = min(num[0], num[2])
+    x2 = max(num[0], num[2])
+    y1 = min(num[1], num[3])
+    y2 = max(num[1], num[3])
+    if y1 == y2:
+        for x in range(x1, x2 + 1):
+            grid[y1][x] += 1
+    elif x1 == x2:
+        for y in range(y1, y2 + 1):
+            grid[y][x1] += 1
+    elif abs(x2 - x1) / abs(y2 - y1) == 1:
+        i = num[0]
+        j = num[1]
+        if num[1] > num[3] and num[0] > num[2]:
+            while i >= num[2]:
+                grid[j][i] += 1
+                i -= 1
+                j -= 1
+        elif num[1] > num[3] and num[0] < num[2]:
+            while i <= num[2] and j <= num[3]:
+                grid[j][i] += 1
+                i += 1
+                j -= 1
+        elif num[1] < num[3] and num[0] > num[2]:
+            while i >= num[2] and j <= num[3]:
+                grid[j][i] += 1
+                i -= 1
+                j += 1
+        elif num[1] < num[3] and num[0] < num[2]:
+            while i <= num[2] and j <= num[3]:
+                grid[j][i] += 1
+                i += 1
+                j += 1
+
+mult_ints = 0
+for y in grid:
+    print_line = ''
+    for x in grid[y]:
+        if grid[y][x] > 1:
+            mult_ints += 1
+        if grid[y][x] == 0:
+            print_line += '.'
+        else:
+            print_line += str(grid[y][x])
+    print(print_line)
+
+print("Part 2: " + str(mult_ints))
