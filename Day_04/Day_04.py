@@ -88,27 +88,27 @@ print("Part 1: " + str(part_1_sum))
 
 # Part 2
 bingocards = create_bingocards(lines)
-winners = []
-for i in range(0, numcards):
-    winners.append(1)
+print_bingocards(bingocards)
+final_num = -1
 
 for num in nums:
     mark_cards(bingocards, num)
-    for i in range(0, numcards):
-        if winners[i] != 1:
-            pass
-        else:
-            result = (check_rows(bingocards[i]), check_columns(bingocards[i]))
+    winners = []
+    for i in range(0, len(bingocards)):
+        winners.append(0)
+    for i in range(0, len(bingocards)):
+        result = (check_rows(bingocards[i]), check_columns(bingocards[i]))
         for res in result:
             if res != -1:
-                winners[i] = 0
-                break
-        if sum(winners) == 1:
-            break
+                winners[i] = 1
+    for i in range(len(bingocards) - 1, -1, -1):
+        if winners[i] == 1:
+            del(bingocards[i])
+    if len(bingocards) == 1:
+        break
+    print('BREAK - ' + str(num))
+    print(len(bingocards))
+    print_bingocards(bingocards)
 
-final_card = 0
-for i in range(0, len(winners)):
-    if winners[i] == 1:
-        final_card = i
-
-print_bingocards(bingocards[final_card])
+# part_2_sum = sum_card(bingocards[final_card]) * final_num
+# print("Part 2: " + str(part_2_sum))
