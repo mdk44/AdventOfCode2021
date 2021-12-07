@@ -1,7 +1,7 @@
 import re
 
-# input_file = 'Day_05\\Input.csv'
-input_file = 'Day_05\\Test.csv'
+input_file = 'Day_05\\Input.csv'
+# input_file = 'Day_05\\Test.csv'
 text_file = open(input_file)
 lines = text_file.read().split('\n')
 
@@ -60,30 +60,30 @@ def diagonals(inp, grid):
         x1 = num[0]
         x2 = num[2]
         y1 = num[1]
-        y2 = num[2]
-    if abs(x1 - x2) / abs(y1 - y2) == 1:
-        i = x1
-        j = y1
-        if x1 > x2 and y1 > y2:
-            while i >= x2:
-                new_grid[j][i] += 1
-                i -= 1
-                j -= 1
-        elif x1 < x2 and y1 > y2:
-            while i <= x2:
-                new_grid[j][i] += 1
-                i += 1
-                j -= 1
-        elif x1 > x2 and y1 < y2:
-            while i >= x2:
-                new_grid[j][i] += 1
-                i -= 1
-                j += 1
-        elif x1 < x2 and y1 < y2:
-            while i <= x2:
-                new_grid[j][i] += 1
-                i += 1
-                j += 1
+        y2 = num[3]
+        if abs(y1 - y2) != 0 and abs(x1 - x2) / abs(y1 - y2) == 1:
+            i = x1
+            j = y1
+            if x1 > x2 and y1 > y2:
+                while i >= x2:
+                    new_grid[j][i] += 1
+                    i -= 1
+                    j -= 1
+            elif x1 < x2 and y1 > y2:
+                while i <= x2:
+                    new_grid[j][i] += 1
+                    i += 1
+                    j -= 1
+            elif x1 > x2 and y1 < y2:
+                while i >= x2:
+                    new_grid[j][i] += 1
+                    i -= 1
+                    j += 1
+            elif x1 < x2 and y1 < y2:
+                while i <= x2:
+                    new_grid[j][i] += 1
+                    i += 1
+                    j += 1
     for y in new_grid:
         for x in new_grid[y]:
             if new_grid[y][x] > 1:
@@ -111,4 +111,4 @@ grid = build_grid()
 grid, result = straight_lines(num_list, grid)
 grid, result = diagonals(num_list, grid) # everything up to THIS POINT is working peachy, so need to reconfigure diagonal function
 print("Part 2: " + str(result))
-print_grid(grid)
+# print_grid(grid)
