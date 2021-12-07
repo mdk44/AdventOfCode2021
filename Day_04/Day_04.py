@@ -31,22 +31,22 @@ def print_bingocards(cards):
             print(y)
         print('')
 
-def check_rows(cards):
-    for card in cards:
-        for y in card:
-            if sum(y) == -5:
-                return cards.index(card)
-    return -1
+def check_rows(card):
+    for y in card:
+        if sum(y) == -5:
+            return 1
+        else:
+            return -1
 
-def check_columns(cards):
-    for card in cards:
-        for x in range(0, 5):
-            result = 0
-            for y in range(0, 5):
-                result += card[y][x]
-            if result == -5:
-                return cards.index(card)
-    return -1
+def check_columns(card):
+    for x in range(0, 5):
+        result = 0
+        for y in range(0, 5):
+            result += card[y][x]
+        if result == -5:
+            return 1
+        else:
+            return -1
 
 def mark_cards(cards, num):
     for card in cards:
@@ -68,15 +68,19 @@ def sum_card(card):
 bingocards = create_bingocards(lines)
 winning_num = -1
 winning_card = -1
+
 for num in nums:
     mark_cards(bingocards, num)
-    result = (check_rows(bingocards), check_columns(bingocards))
-    for res in result:
-        if res != -1:
-            winning_num = num
-            winning_card = res
+    for i in range(0, numcards):
+        result = (check_rows(bingocards[i]), check_columns(bingocards[i]))
+        for res in result:
+            if res != -1:
+                winning_num = num
+                winning_card = i
+                break
+        if winning_card > -1:
             break
-    if winning_num != -1:
+    if winning_card > -1:
         break
 
 part_1_sum = sum_card(bingocards[winning_card]) * winning_num
