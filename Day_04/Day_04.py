@@ -1,7 +1,7 @@
 import re
 
-# input_file = 'Day_04\\Input.csv'
-input_file = 'Day_04\\Test.csv'
+input_file = 'Day_04\\Input.csv'
+# input_file = 'Day_04\\Test.csv'
 text_file = open(input_file)
 lines = text_file.read().split('\n')
 
@@ -35,8 +35,7 @@ def check_rows(card):
     for y in card:
         if sum(y) == -5:
             return 1
-        else:
-            return -1
+    return -1
 
 def check_columns(card):
     for x in range(0, 5):
@@ -45,8 +44,7 @@ def check_columns(card):
             result += card[y][x]
         if result == -5:
             return 1
-        else:
-            return -1
+    return -1
 
 def mark_cards(cards, num):
     for card in cards:
@@ -88,9 +86,9 @@ print("Part 1: " + str(part_1_sum))
 
 # Part 2
 bingocards = create_bingocards(lines)
-print_bingocards(bingocards)
 final_num = -1
 
+# Isolate the final card
 for num in nums:
     mark_cards(bingocards, num)
     winners = []
@@ -106,9 +104,17 @@ for num in nums:
             del(bingocards[i])
     if len(bingocards) == 1:
         break
-    print('BREAK - ' + str(num))
-    print(len(bingocards))
-    print_bingocards(bingocards)
 
-# part_2_sum = sum_card(bingocards[final_card]) * final_num
-# print("Part 2: " + str(part_2_sum))
+# Make the final card win
+for num in nums:
+    mark_cards(bingocards, num)
+    result = (check_rows(bingocards[0]), check_columns(bingocards[0]))
+    for res in result:
+        if res != -1:
+            final_num = num
+            break
+    if final_num > -1:
+        break
+
+part_2_sum = sum_card(bingocards[0]) * final_num
+print("Part 2: " + str(part_2_sum))
