@@ -56,6 +56,13 @@ def convert_letters(line):
     print(new_letters)
     print(inputs)
 
+def part_1(line):
+    result = 0
+    inputs, code = read_input(line)
+    for c in code:
+        if len(c) == 2 or len(c) == 3 or len(c) == 4 or len(c) == 7:
+            result += 1
+    return result
 
 new_digits = {}
 new_digits = digits.copy()
@@ -64,5 +71,9 @@ new_digits = digits.copy()
 # pos = val_list.index('cf')
 # print(key_list[pos])
 
+# Part 1
+cum_sum = 0
 for line in lines:
-    convert_letters(line)
+    cum_sum += part_1(line)
+
+print("Part 1: " + str(cum_sum))
