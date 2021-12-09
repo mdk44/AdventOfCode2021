@@ -1,5 +1,5 @@
-# input_file = 'Day_09\\Input.csv'
-input_file = 'Day_09\\Test.csv'
+input_file = 'Day_09\\Input.csv'
+# input_file = 'Day_09\\Test.csv'
 text_file = open(input_file)
 lines = text_file.read().split('\n')
 max_y = len(lines)
@@ -86,11 +86,10 @@ def check_basin(grid, basin_inp, y, x):
 
     for j in check_y:
         for i in check_x:
-            if (y + j, x + i) in new_basin:
-                continue
-            new_value = int(grid[y + j][x + i])
-            if new_value == orig_value + 1 and new_value != 9:
-                new_basin.append((y + j, x + i))
+            if (y + j, x + i) not in new_basin:
+                new_value = int(grid[y + j][x + i])
+                if new_value > orig_value and new_value < 9:
+                    new_basin.append((y + j, x + i))
     return new_basin
         
 
@@ -104,6 +103,7 @@ def calc_basin(grid):
             basin = check_basin(grid, basin, b[0], b[1])
         basin_size.append(len(basin))
     top_3 = sorted(basin_size, reverse = True)[:3]
+    # print(basin_size)
     return top_3
 
 def final_part2(grid):
