@@ -18,12 +18,12 @@ for line in lines:
         max_x = x
     if y > max_y:
         max_y = y
-    grid[y, x] = 'X'
+    grid[y, x] = 'O '
 
 for y in range(0, max_y + 1):
     for x in range(0, max_x + 1):
         if (y, x) not in grid:
-            grid[y, x] = '.'
+            grid[y, x] = '  '
 
 fold_dir = []
 fold_num = []
@@ -47,7 +47,7 @@ def count_points(grid, num_y, num_x):
     points = 0
     for y in range(0, num_y + 1):
         for x in range(0, num_x + 1):
-            if grid[y, x] == 'X':
+            if grid[y, x] == 'O ':
                 points += 1
     return points
 
@@ -57,7 +57,7 @@ def fold(grid, type, num):
             grid[num, x] = '-'
         for y in range(0, num):
             for x in range(0, max_x + 1):
-                if grid[y, x] == '.' and (2 * num - y, x) in grid:
+                if grid[y, x] == '  ' and (2 * num - y, x) in grid:
                     grid[y, x] = grid[2 * num - y, x]
         for y in range(num, max_y):
             for x in range(0, max_x + 1):
@@ -69,7 +69,7 @@ def fold(grid, type, num):
             grid[y, num] = '|'
         for y in range(0, max_y + 1):
             for x in range(0, num):
-                if grid[y, x] == '.' and (y, 2 * num - x) in grid:
+                if grid[y, x] == '  ' and (y, 2 * num - x) in grid:
                     grid[y, x] = grid[y, 2 * num - x]
         for y in range(0, max_y + 1):
             for x in range(num, max_x):
