@@ -21,8 +21,6 @@ for c in connections:
     if 'start' in connections[c]:
         connections[c].remove('start')
 
-print(connections)
-
 def generate_path(path = ['start']):
     paths = 0
     for p in connections[path[-1]]:
